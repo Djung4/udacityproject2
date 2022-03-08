@@ -20,8 +20,10 @@ This project is part of Data Science Nanodegree Program by Udacity in collaborat
 
 ### Run
 Please run the following commands in the project's directory to generate the database, train and save your model for the app.
+
     - To start the ETL pipeline, please run
         `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/disaster_response_db.db`
+        
     - To start the ML pipeline, please run
         `python models/train_classifier.py data/disaster_response_db.db models/classifier.pkl`
 
