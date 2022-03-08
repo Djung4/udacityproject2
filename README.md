@@ -1,5 +1,5 @@
 # Disaster Response Pipeline
-![Intro Pic](screenshots/img1.PNG)
+![Intro Pic](img1.PNG)
 
 ## Description
 In this project I will present a web app and related processing scripts where emergency workers can input a new message and get classification results in several categories. The web app will also display visualizations of the data. This project will show off my software skills, including my ability to create basic data pipelines and write clean, organized code!
