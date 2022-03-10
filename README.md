@@ -6,6 +6,22 @@ In this project I will present a web app and related processing scripts where em
 
 This project is part of Data Science Nanodegree Program by Udacity in collaboration with Figure Eight. 
 
+## Structure / Files in the repository
+app
+| - template
+| |- master.html # main page of web app
+| |- go.html # classification result page of web app
+|- run.py # Flask file that runs app
+data
+|- disaster_categories.csv # data to process
+|- disaster_messages.csv # data to process
+|- process_data.py
+|- InsertDatabaseName.db # database to save clean data to
+models
+|- train_classifier.py
+|- classifier.pkl # saved model
+README.md
+
 ## Usage
 ### Dependencies
 * json
