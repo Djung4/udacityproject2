@@ -1,5 +1,4 @@
 import sys
-
 from sqlalchemy import create_engine
 import nltk
 nltk.download(['punkt', 'wordnet'])
@@ -17,8 +16,18 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.multioutput import MultiOutputClassifier
 import pickle
 
-# load data from filepath to script
 def load_data(database_filepath):
+    """
+    Load data from filepath to script
+  
+    Parameters:
+    database_filepath: path to the database where your data is stored
+  
+    Returns:
+    X: dataset without target variable
+    y: target variable of the dataset X
+    category_names: category names
+    """
     engine = create_engine('sqlite:///'+database_filepath)
     df = pd.read_sql_table('DisasterResponse', engine)
     X = df.message
@@ -26,8 +35,16 @@ def load_data(database_filepath):
     category_names = y.columns
     return X, y, category_names 
 
-# tokenize function, used from udacity lecture
 def tokenize(text):
+    """
+    Tokenize function, used from udacity lecture
+  
+    Parameters:
+    text: text that should be tokenized
+  
+    Returns:
+    clean_tokens: cleaned tokens that can be used for mlp
+    """
     url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
     detected_urls = re.findall(url_regex, text)
     for url in detected_urls:
@@ -43,8 +60,10 @@ def tokenize(text):
 
     return clean_tokens    
 
-# build straight forward model for categorization
 def build_model():
+    """
+    build straight forward model for categorization
+    """
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
@@ -59,14 +78,30 @@ def build_model():
     model = GridSearchCV(pipeline, param_grid=parameters, n_jobs=4, verbose=2, cv=3)
     return model
 
-# compute evaluation scores
 def evaluate_model(model, X_test, y_test, category_names):
+    """
+    compute evaluation scores
+  
+    Parameters:
+    model: Description of arg1
+    X_test, y_test: test data and related target variable in test data
+    category_names: category names
+    
+    Returns:
+    class_report: Report with scores
+    """
     y_pred = model.predict(X_test)
     class_report = classification_report(y_test, y_pred, target_names=category_names)
     print(class_report)
 
-# save model for the app
 def save_model(model, model_filepath):
+    """
+    save model for the app
+  
+    Parameters:
+    model: your classifier to predict message category
+    model_filepath: path to store model
+    """
     with open(model_filepath, 'wb') as file:
         pickle.dump(model, file)
 
