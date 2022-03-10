@@ -13,6 +13,10 @@ app = Flask(__name__)
 
 # functions
 def tokenize(text):
+    ''' splits the text into distinct tokens
+    Paramters:
+    - text: text that should be tokenized
+    '''
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
     clean_tokens = []
